@@ -204,7 +204,7 @@ word_list = [
 'yippee',
 'yoked',
 'youthful',
-'yummy', 
+'yummy',
 'zephyr',
 'zigzag',
 'zigzagging',
@@ -212,4 +212,4 @@ word_list = [
 'zipper',
 'zodiac',
 'zombie',
-]
+] 
