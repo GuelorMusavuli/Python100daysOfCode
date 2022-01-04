@@ -25,5 +25,23 @@ def encrypt_message(plain_text, shift_amount):
     print(f"The encoded or encrypted text is {cipher_text}")
 
 
-# Call the function and pass in user's inputs
-encrypt_message(plain_text=text, shift_amount=shift)
+def decrypt_message(cipher_text, shift_amount):
+    """This function decrypts the message by shifting each letter
+     of the 'text' backwards in the alphabet by the shift amount
+     and print the decrypted text"""
+    plain_text = ""
+    for letter in cipher_text:
+        position = alphabet.index(letter)
+        new_position = position - shift_amount
+        new_letter = alphabet[new_position]
+        plain_text += new_letter
+    print(f"The decoded or decrypted text is {plain_text}")
+
+
+'''Check if the user wanted to encrypt or decrypt the message 
+as per the 'direction' variable. Then call the correct function 
+as per the direction entered. '''
+if direction == "encode":
+    encrypt_message(plain_text=text, shift_amount=shift)
+else:
+    decrypt_message(cipher_text=text, shift_amount=shift)
