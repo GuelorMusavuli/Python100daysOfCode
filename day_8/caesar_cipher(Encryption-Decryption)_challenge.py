@@ -1,15 +1,9 @@
 # This program is challenge to encode texts from the users input
+from art import logo
 
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-            'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-            'w', 'x', 'y', 'z']
-
-# User's inputs
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n"))
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z']
 
 
 def caesar(entered_text, shift_amount, chosen_direction):
@@ -22,12 +16,20 @@ def caesar(entered_text, shift_amount, chosen_direction):
      as per the 'direction' variable. if decode, then shift backward.'''
     if chosen_direction == "decode":
         shift_amount *= -1
-    for letter in entered_text:
-        position = alphabet.index(letter)
-        new_position = position + shift_amount
-        end_text += alphabet[new_position]
-    print(f"The {chosen_direction}d text is {end_text}")
+    for char in entered_text:
+        # if the user enters a number/symbol/space, only encode/decode the letter
+        # and keep the number/symbol/space when the text is encoded/decoded.
+        if char in alphabet:
+            position = alphabet.index(char)
+            new_position = position + shift_amount
+            end_text += alphabet[new_position]
+        else:
+            end_text += char
+    print(f"Here's the {chosen_direction}d result : {end_text}")
 
+
+# Print the logo from art.py when the program starts.
+print(logo)
 
 # def encrypt_message(plain_text, shift_amount):
 #     """This function encrypts the message by shifting each letter
@@ -63,6 +65,24 @@ def caesar(entered_text, shift_amount, chosen_direction):
 # else:
 #     decrypt_message(cipher_text=text, shift_amount=shift)
 
+# Ask the user if they want to restart the cipher program
+should_continue = True
+while should_continue:
+    # User's inputs
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
 
-# Call the caesar function, passing over the user's inputs values(text, shift, and direction)
-caesar(entered_text=text, shift_amount=shift, chosen_direction=direction)
+    # Allow the program to keep working even if the user enters
+    # a shift number > 26 (number of letters in the alphabet).
+    # Then call the function, passing over the input values.
+    shift = shift % 26
+    caesar(entered_text=text, shift_amount=shift, chosen_direction=direction)
+
+    # If the user types 'no' the program should end. Otherwise, the user
+    # is asked for the direction/text/shift again and the caesar() function is called again.
+    result = input("Type 'yes' if you wanna go again. Otherwise type 'no'.\n")
+    if result == "no":
+        should_continue = False
+        print("Goodbye!")
+
