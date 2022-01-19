@@ -51,7 +51,7 @@ def calculator():
             num1 = answer
         else:
             should_continue = False
-            calculator()  # Recursion function to start all the way back from the beginning
+            calculator()  # Recursion function to start a fresh
 
 
 calculator()
